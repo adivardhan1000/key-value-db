@@ -1,3 +1,7 @@
+Implementing a basic database that operates on key value pair as queried
+
+For this implementation, we will creating our own Database instead of using a NoSQL in backend.
+
 ## Managing Environment 
 ### Create a env:
     python -m venv myenv
