@@ -1,21 +1,24 @@
-from db_commands import commands
+from db_commands import Commands
 
-def parse_string_call_db_commands(comm, userInput):
+def parse_string_call_db_commands(comm, userCommand):
     '''Reusable to call the db commands
     Inputs: 
         db_commands.commands() Object
         user Input             String'''
-    userCommand = userCommand.strip().split()
-    return getattr(comm, userCommand[0])(userCommand)
+    commandName = userCommand.strip().split()[0]
+    return getattr(comm, commandName)(userCommand)
 
 
-def processInputInCMD(conn):
+def processInputInCMD():
     print("To Stop enter x")
     print("Enter commands to process below")
-    comm = commands(conn)
+    comm = Commands()
     while True:
         userCommand = input(">>")
         if userCommand.lower() == 'x':
             break
-        print(parse_string_call_db_commands(comm, userCommand))
+        try:
+            print(parse_string_call_db_commands(comm, userCommand))
+        except Exception as e:
+            print("Error", e)
         
