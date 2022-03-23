@@ -55,3 +55,13 @@ Note:
     coverage run -m pytest test/
     # To generate html report
     coverage html
+
+## Project Structure
+    /key_value_db
+        Python modules
+        /test
+        /htmlcov
+    /myenv
+    README.md
+    requirementx.txt
+    .gitignore
