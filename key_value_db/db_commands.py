@@ -90,5 +90,8 @@ class Commands:
                 return False
         
     def COMPACT(self, userCommand):
+        output = []
         for key in self.compactCommands.keys():
-            print('SET',key,str(self.compactCommands[key]))
+            output.append('SET '+key+' '+str(self.compactCommands[key]))
+        print(command for command in output)
+        return output

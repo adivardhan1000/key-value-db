@@ -1,4 +1,4 @@
-from db_commands import Commands
+from key_value_db.db_commands import Commands
 
 def parse_string_call_db_commands(comm, userCommand):
     '''Reusable to call the db commands
@@ -18,6 +18,7 @@ def processInputInCMD(comm):
             break
         try:
             output = parse_string_call_db_commands(comm, userCommand)
+            print(output)
         except Exception as e:
             print("Error", e)
         

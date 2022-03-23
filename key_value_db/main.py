@@ -1,5 +1,5 @@
-from read_input_cmd import processInputInCMD
-from db_commands import Commands
+from key_value_db.read_input_cmd import processInputInCMD
+from key_value_db.db_commands import Commands
 
 def _main():
     # try:
