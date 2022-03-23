@@ -1,4 +1,4 @@
-from key_value_db.db_commands import Commands
+from db_commands import Commands
 
 def parse_string_call_db_commands(comm, userCommand):
     '''Reusable to call the db commands
@@ -6,7 +6,10 @@ def parse_string_call_db_commands(comm, userCommand):
         db_commands.commands() Object
         user Input             String'''
     commandName = userCommand.strip().split()[0]
-    return getattr(comm, commandName)(userCommand)
+    try:
+        return getattr(comm, commandName)(userCommand)
+    except AttributeError:
+        return False
 
 
 def processInputInCMD(comm):
@@ -18,7 +21,5 @@ def processInputInCMD(comm):
             break
         try:
             output = parse_string_call_db_commands(comm, userCommand)
-            print(output)
         except Exception as e:
             print("Error", e)
-        
