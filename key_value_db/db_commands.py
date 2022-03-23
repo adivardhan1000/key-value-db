@@ -8,6 +8,9 @@ class Commands:
         self.isMulti = False
         self.compactCommands = {}
 
+    def checkConnection(self):
+        return self.conn.ping()
+
     def run_all_commands(self):
         try:
             for command in self.multiCommands:

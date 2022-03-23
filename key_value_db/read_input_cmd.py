@@ -9,16 +9,15 @@ def parse_string_call_db_commands(comm, userCommand):
     return getattr(comm, commandName)(userCommand)
 
 
-def processInputInCMD():
+def processInputInCMD(comm):
     print("To Stop enter x")
     print("Enter commands to process below")
-    comm = Commands()
     while True:
         userCommand = input(">>")
         if userCommand.lower() == 'x':
             break
         try:
-            parse_string_call_db_commands(comm, userCommand)
+            output = parse_string_call_db_commands(comm, userCommand)
         except Exception as e:
             print("Error", e)
         

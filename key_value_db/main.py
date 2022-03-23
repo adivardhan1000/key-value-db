@@ -1,4 +1,5 @@
 from read_input_cmd import processInputInCMD
+from db_commands import Commands
 
 def _main():
     # try:
@@ -7,7 +8,11 @@ def _main():
     #     print("Database not found. Create one before performing operations")
     # final_data = inputFromCMD()
     # writeDictToLocalDatabase('mydatabase', final_data)
-    processInputInCMD()
+    comm = Commands()
+    if comm.checkConnection():
+        processInputInCMD(comm)
+    else:
+        print("Connection Error")
 
 if __name__=="__main__":
     _main()
