@@ -12,12 +12,18 @@ class Commands:
         return self.conn.ping()
 
     def run_all_commands(self):
+        """Reusable if passed with list of string of commands to execute at once
+        """
+        print(self.multiCommands)
         try:
             for command in self.multiCommands:
                 commandName = command.strip().split()[0]
                 getattr(self, commandName)(command)
-        except:
-            print("Some of the multiline commands failed to execute")
+        except Exception as e:
+            print(e)
+            return "Some of the multiline commands failed to execute"
+        finally:
+            self.multiCommands = []
 
 
     def MULTI(self, userCommand):
@@ -29,7 +35,7 @@ class Commands:
 
     def EXEC(self, userCommand):
         self.isMulti = False
-        self.run_all_commands()
+        return self.run_all_commands()
 
     def SET(self, userCommand):
         if self.isMulti:
@@ -39,7 +45,8 @@ class Commands:
                 line = userCommand.strip().split()
                 self.compactCommands[line[1]] = line[2]
                 return self.conn.set(line[1],line[2])
-            except:
+            except Exception as e:
+                print(e)
                 return False
 
     def GET(self, userCommand):
@@ -61,9 +68,11 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                self.compactCommands.pop(line[1], None)
+                if line[1] in self.compactCommands.keys():
+                    self.compactCommands.pop(line[1], None)
                 return self.conn.delete(line[1])
-            except:
+            except Exception as e:
+                print(e)
                 return False
 
     def INCR(self, userCommand):
@@ -72,7 +81,8 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + 1
+                if line[1] in self.compactCommands.keys():
+                    self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + 1
                 return self.conn.incr(line[1])
             except Exception as e:
                 print(e)
@@ -84,14 +94,17 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + int(line[2])
+                if line[1] in self.compactCommands.keys():
+                    self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + int(line[2])
                 return self.conn.incrby(line[1],line[2])
-            except:
+            except Exception as e:
+                print(e)
                 return False
         
     def COMPACT(self, userCommand):
-        output = []
+        outputs = []
         for key in self.compactCommands.keys():
-            output.append('SET '+key+' '+str(self.compactCommands[key]))
-        print(command for command in output)
-        return output
+            outputs.append('SET '+key+' '+str(self.compactCommands[key]))
+        for output in outputs:
+            print(output)
+        return outputs

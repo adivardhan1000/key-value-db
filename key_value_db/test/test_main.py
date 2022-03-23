@@ -1,6 +1,6 @@
 import unittest
-from key_value_db.db_commands import Commands
-from key_value_db.read_input_cmd import parse_string_call_db_commands
+from db_commands import Commands
+from read_input_cmd import parse_string_call_db_commands
 
 class Test(unittest.TestCase):
 
@@ -51,6 +51,13 @@ class Test(unittest.TestCase):
         output =parse_string_call_db_commands(self.c, 'COMPACT')
         expectedOutput = ['SET abc 11']
         self.assertEqual(output, expectedOutput)
+
+    def test_exceptions(self):
+        self.assertFalse(parse_string_call_db_commands(self.c, 'SETA abc 5'))
+        self.assertFalse(parse_string_call_db_commands(self.c, 'SET abc'))
+        parse_string_call_db_commands(self.c, 'SET abc ab')
+        self.assertFalse(parse_string_call_db_commands(self.c, 'INCR abc'))
+        self.assertFalse(parse_string_call_db_commands(self.c, 'INCRBY abc 15'))
 
 
 if __name__=="__main__":
