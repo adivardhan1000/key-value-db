@@ -49,7 +49,7 @@ Note:
 
 ## Running Code
 ### Main file
-    python cd
+    cd key_value_db
     python .\main.py 
 ### Running tests
     coverage run -m pytest test/
