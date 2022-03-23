@@ -1,9 +1,12 @@
-from db_commands import *
+import db_commands
 
-def inputFromCMD():
+def processInputInCMD(conn):
+    print("To Stop enter x")
+    print("Enter commands to process below")
     while True:
-        userCommand = input("Enter Commands line by line\nTo Stop enter x")
+        userCommand = input(">>")
         if userCommand.lower() == 'x':
             break
-
-    return {}
+        userCommand = userCommand.strip().split()
+        result = getattr(db_commands, userCommand[0])(conn, userCommand[1],userCommand[2])
+        print(result)
