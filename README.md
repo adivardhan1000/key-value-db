@@ -49,8 +49,9 @@ Note:
 
 ## Running Code
 ### Main file
-    python .\key_value_db\main.py 
+    python cd
+    python .\main.py 
 ### Running tests
-    coverage run -m pytest
+    coverage run -m pytest test/
     # To generate html report
     coverage html
