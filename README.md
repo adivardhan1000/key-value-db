@@ -1,11 +1,11 @@
 Implementing a basic database that operates on key value pair as queried
 
-For this implementation, we will creating our own Database instead of using a NoSQL in backend.
+For this implementation, we will be using redis cloud.
 
 Assumption:
-    COMPACT works for only variables intialized in the session
-    Any variables alredy existing won't be accounted for
-    
+    COMPACT works for only variables intialized in the session. Any already existing data/variables won't be used.
+    Meaning, COMPACT lines generated will only consist of newly used variables in the current session.
+
 
 
 ## Managing Environment 
