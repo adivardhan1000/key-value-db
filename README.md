@@ -3,6 +3,10 @@
 ### For this implementation, we will be using redis cloud. This makes it usable across Linux and Windows. This can be implemented locally on a Linux system
 Note: Redis is not supported by windows 10. To run on windows, you need to install Linux subsystem for windows and run it from there.
 
+### Note: Not Production Ready:
+
+    Logging will need to be removed from all try/catch blocks
+
 Assumption:
 
     COMPACT works for only variables intialized in the session. Any already existing data/variables won't be used.

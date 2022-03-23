@@ -21,7 +21,7 @@ class Commands:
                 getattr(self, commandName)(command)
         except Exception as e:
             print(e)
-            return "Some of the multiline commands failed to execute"
+            return False
         finally:
             self.multiCommands = []
 
