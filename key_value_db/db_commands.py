@@ -1,9 +1,9 @@
 import redis
 
 class Commands:
-    def __init__(self):
+    def __init__(self, host='redis-11787.c212.ap-south-1-1.ec2.cloud.redislabs.com', port=11787 , password='DYCGtrpViyoZmYWCSHhhrmhMIQ1ABTMR'):
         ## This is a testing cloud hosted redis server. The actual db values will be stored as secrests
-        self.conn = redis.Redis(host='redis-11787.c212.ap-south-1-1.ec2.cloud.redislabs.com', port=11787 , password='DYCGtrpViyoZmYWCSHhhrmhMIQ1ABTMR')
+        self.conn = redis.Redis(host=host, port=port , password=password)
         self.multiCommands = []
         self.isMulti = False
         self.compactCommands = {}
@@ -45,7 +45,9 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                return self.conn.get(line[1])
+                output = self.conn.get(line[1])
+                print(output)
+                return output
             except Exception as e:
                 print(e)
                 return False
@@ -67,9 +69,10 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                self.compactCommands[line[1]] += 1
+                self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + 1
                 return self.conn.incr(line[1])
-            except:
+            except Exception as e:
+                print(e)
                 return False
 
     def INCRBY(self, userCommand):
@@ -78,10 +81,11 @@ class Commands:
         else:
             try:
                 line = userCommand.strip().split()
-                self.compactCommands[line[1]] += int(line[2])
+                self.compactCommands[line[1]] = int(self.compactCommands[line[1]]) + int(line[2])
                 return self.conn.incrby(line[1],line[2])
             except:
                 return False
         
     def COMPACT(self, userCommand):
-        pass
+        for key in self.compactCommands.keys():
+            print('SET',key,str(self.compactCommands[key]))

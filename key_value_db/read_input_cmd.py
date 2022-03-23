@@ -18,7 +18,7 @@ def processInputInCMD():
         if userCommand.lower() == 'x':
             break
         try:
-            print(parse_string_call_db_commands(comm, userCommand))
+            parse_string_call_db_commands(comm, userCommand)
         except Exception as e:
             print("Error", e)
         
