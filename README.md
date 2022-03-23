@@ -2,6 +2,12 @@ Implementing a basic database that operates on key value pair as queried
 
 For this implementation, we will creating our own Database instead of using a NoSQL in backend.
 
+Assumption:
+    COMPACT works for only variables intialized in the session
+    Any variables alredy existing won't be accounted for
+    
+
+
 ## Managing Environment 
 ### Create a env:
     python -m venv myenv
